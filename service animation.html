@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Services | Custom AI Solutions</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- GLOBAL RESETS --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0b0b0e;
+      color: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden; /* Prevents horizontal scroll from 3D elements */
+    }
+
+    .services-section {
+      padding: 100px 20px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    /* --- TYPOGRAPHY --- */
+    .section-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .section-header span {
+      color: #ff6a1a;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+    }
+
+    .section-header h1 {
+      font-size: 44px;
+      margin: 12px 0;
+      font-weight: 800;
+    }
+
+    .section-header p {
+      color: #9ca3af;
+      max-width: 800px;
+      margin: auto;
+      font-size: 17px;
+    }
+
+    /* --- SERVICE CARD LAYOUT --- */
+    .service-card {
+      background: #0f0f13;
+      border: 1px dashed #2a2a30;
+      border-radius: 14px;
+      padding: 50px;
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      margin-bottom: 70px;
+      overflow: visible; /* Changed to visible to allow 3D popouts */
+      position: relative;
+    }
+
+    .service-content {
+      flex: 1;
+      z-index: 2;
+    }
+
+    .service-index {
+      color: #ff6a1a;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    .service-content h2 {
+      font-size: 30px;
+      margin: 12px 0;
+      font-weight: 700;
+    }
+
+    .service-content p {
+      color: #cbd5e1;
+      margin-bottom: 26px;
+      font-size: 16px;
+    }
+
+    .features {
+      list-style: none;
+    }
+
+    .features li {
+      margin-bottom: 14px;
+      color: #9ca3af;
+      font-size: 15px;
+    }
+
+    .features strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* --- VISUAL CONTAINER --- */
+    .service-visual {
+      flex: 0.9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      perspective: 1000px;
+    }
+
+/* =========================================
+      SECTION 1: ENHANCED AI AGENTS (UPDATED)
+      ========================================= 
+   */
+   .deck-scene {
+     width: 280px; height: 280px;
+     perspective: 1200px;
+     display: flex; justify-content: center; align-items: center;
+     cursor: pointer; /* Interaction hint */
+   }
+
+   .deck-group {
+     position: relative; width: 180px; height: 240px;
+     transform-style: preserve-3d;
+     
+     /* INITIAL STATE: Lying flat on the "table" */
+     transform: rotateX(45deg) rotateZ(-30deg) rotateY(20deg);
+     
+     /* Smooth easing for the lift effect */
+     transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+   }
+
+   /* HOVER STATE: Lifts slightly, but stays slanted */
+   .deck-scene:hover .deck-group {
+     /* rotateX(30deg): Lifts up slightly (was 45deg), but not vertical.
+        rotateZ(-15deg): Straightens a little (was -30deg), but keeps the angle.
+        rotateY(15deg): Maintains the 3D depth.
+     */
+     transform: rotateX(30deg) rotateZ(-15deg) rotateY(15deg);
+   }
+
+   .id-card {
+     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+     background: rgba(20, 20, 23, 0.95); border: 1px solid #333;
+     border-radius: 12px; padding: 15px;
+     box-shadow: -10px 10px 20px rgba(0,0,0,0.5);
+     display: flex; flex-direction: column; overflow: hidden;
+     /* The shuffling animation continues */
+     animation: cardShuffle 9s infinite ease-in-out; 
+     opacity: 0;
+   }
+
+   .card-header { 
+     display: flex; justify-content: space-between; align-items: center; 
+     margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); 
+     padding-bottom: 8px; 
+   }
+   
+   .role-badge { 
+     font-size: 9px; font-weight: 800; text-transform: uppercase; 
+     letter-spacing: 1px; padding: 4px 6px; border-radius: 4px; 
+     background: #222; color: #888; 
+   }
+
+   .card-body { 
+     flex: 1; display: flex; flex-direction: column; 
+     justify-content: flex-end; gap: 5px; 
+   }
+   
+   .stat-label { font-size: 10px; color: #666; }
+   .stat-value { 
+     font-size: 18px; font-weight: 700; color: #fff; 
+     display: flex; align-items: center; gap: 6px; 
+   }
+
+   .activity-badge {
+     position: absolute; top: 8px; right: 8px;
+     font-size: 8px; padding: 3px 6px; border-radius: 3px;
+     background: rgba(39, 201, 63, 0.2);
+     color: #27c93f; font-weight: 700;
+     border: 1px solid #27c93f;
+     animation: badgeBlink 2s infinite;
+   }
+
+   /* Specific Cards */
+   .card-sales { animation-delay: 0s; border-top: 3px solid #ff6a1a; }
+   .card-sales .role-badge { color: #ff6a1a; background: rgba(255, 106, 26, 0.1); }
+   .card-sales .stat-value { color: #ff6a1a; }
+   .counter-scroll { display: inline-block; height: 20px; overflow: hidden; position: relative; width: 12px; }
+   .counter-strip { position: absolute; top: 0; left: 0; animation: scrollNum 1s infinite steps(10); }
+
+   .card-support { animation-delay: -3s; border-top: 3px solid #3b82f6; }
+   .card-support .role-badge { color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
+   .card-support .stat-value { color: #3b82f6; font-size: 14px; }
+   .pulse-dot { width: 8px; height: 8px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 5px #3b82f6; animation: pulse 1s infinite; }
+
+   .card-analyst { animation-delay: -6s; border-top: 3px solid #a855f7; }
+   .card-analyst .role-badge { color: #a855f7; background: rgba(168, 85, 247, 0.1); }
+   .card-analyst .stat-value { color: #a855f7; font-size: 14px; }
+   .bar-graph { display: flex; gap: 3px; align-items: flex-end; height: 15px; }
+   .bar { width: 3px; background: #a855f7; }
+   .b1 { height: 40%; animation: bar 0.5s infinite alternate; }
+   .b2 { height: 80%; animation: bar 0.7s infinite alternate; }
+   .b3 { height: 60%; animation: bar 0.4s infinite alternate; }
+
+   @keyframes cardShuffle {
+     0% { transform: translate3d(0, 0, 60px); opacity: 1; z-index: 10; border-color: rgba(255,255,255,0.3); box-shadow: -15px 15px 30px rgba(0,0,0,0.6); }
+     20% { transform: translate3d(0, 0, 60px); opacity: 1; z-index: 10; }
+     25% { transform: translate3d(0, -60px, 60px); opacity: 1; z-index: 11; }
+     30% { transform: translate3d(0, 0, -40px); opacity: 0.4; z-index: 1; box-shadow: none; border-color: #333; }
+     33.33%, 60% { transform: translate3d(0, 0, -40px); opacity: 0.4; z-index: 1; }
+     66.66% { transform: translate3d(0, 0, 10px); opacity: 0.7; z-index: 5; }
+     90% { transform: translate3d(0, 0, 10px); opacity: 0.7; z-index: 5; }
+     100% { transform: translate3d(0, 0, 60px); opacity: 1; z-index: 10; }
+   }
+   @keyframes scrollNum { to { transform: translateY(-100%); } }
+   @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+   @keyframes bar { from { opacity: 0.5; } to { opacity: 1; height: 100%; } }
+   @keyframes badgeBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    /* =========================================
+       SECTION 2: ENHANCED PREDICTIVE SYSTEMS
+       ========================================= 
+    */
+    .pipeline-card { 
+      width: 100%; max-width: 420px; background: #08080a; 
+      border: 1px solid #1f1f23; border-radius: 16px; 
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4); overflow: hidden; 
+      display: flex; flex-direction: column; 
+      font-family: 'JetBrains Mono', monospace; 
+    }
+     
+    .dash-header { 
+      background: #121215; padding: 12px 20px; 
+      border-bottom: 1px solid #1f1f23; display: flex; 
+      justify-content: space-between; align-items: center; 
+    }
+     
+    .header-title { 
+      font-size: 11px; color: #666; text-transform: uppercase; 
+      letter-spacing: 1px; font-weight: 700; 
+    }
+     
+    .status-badge { 
+      font-size: 10px; padding: 4px 8px; border-radius: 4px; 
+      background: #1a1a1e; color: #888; border: 1px solid #333; 
+      transition: all 0.3s ease; text-transform: uppercase; font-weight: 700; 
+    }
+    .status-badge.scanning { color: #ccc; }
+    .status-badge.predicting { color: #ff6a1a; border-color: #ff6a1a; background: rgba(255, 106, 26, 0.1); }
+    .status-badge.acting { color: #fff; border-color: #fff; background: rgba(255, 255, 255, 0.1); }
+    .status-badge.stabilized { color: #27c93f; border-color: #27c93f; background: rgba(39, 201, 63, 0.1); }
+     
+    .pipeline-viz { 
+      position: relative; padding: 50px 30px; height: 200px; 
+      display: flex; align-items: center; justify-content: space-between; 
+      background: radial-gradient(circle at center, #151515 0%, #0d0d0d 100%); 
+    }
+     
+    .node { 
+      width: 60px; height: 60px; /* Slight increase for text fit */
+      border-radius: 50%; /* UPDATED: Made completely round */
+      background: #1a1a1e; border: 2px solid #333; z-index: 2; 
+      display: flex; justify-content: center; align-items: center; 
+      flex-direction: column; position: relative; 
+      transition: all 0.4s ease; color: #555; 
+      font-size: 10px; font-weight: 700; 
+    }
+     
+    .node-label {
+      font-size: 8px;
+      color: #555; 
+      text-transform: uppercase; letter-spacing: 0.5px;
+      transition: color 0.3s;
+      text-align: center;
+      font-weight: 700;
+    }
+     
+    .node.active-predict { 
+      border-color: #ff6a1a; 
+      box-shadow: 0 0 20px rgba(255, 106, 26, 0.4); 
+      color: #ff6a1a; background: rgba(255, 106, 26, 0.05);
+    }
+    .node.active-predict .node-label { color: #ff6a1a; }
+     
+    .node.active-act { 
+      border-color: #27c93f; 
+      box-shadow: 0 0 20px rgba(39, 201, 63, 0.4); 
+      color: #27c93f; background: rgba(39, 201, 63, 0.05);
+    }
+    .node.active-act .node-label { color: #27c93f; }
+     
+    .pipeline-track { 
+      position: absolute; top: 50%; left: 55px; right: 55px; 
+      height: 2px; background: #222; 
+      transform: translateY(-50%); z-index: 1; 
+    }
+     
+    .particle-container { 
+      position: absolute; top: 50%; left: 55px; right: 55px; 
+      height: 2px; transform: translateY(-50%); z-index: 1; 
+      overflow: hidden; pointer-events: none; 
+    }
+     
+    .particle { 
+      position: absolute; top: 0; left: 0; width: 12px; height: 2px; 
+      background: #555; border-radius: 2px; opacity: 0; 
+      animation: flow 2.5s linear infinite; 
+    }
+     
+    .particle-container.predicting .particle { 
+      background: #ff6a1a; box-shadow: 0 0 8px #ff6a1a; 
+    }
+     
+    .particle-container.acting .particle { 
+      background: #27c93f; box-shadow: 0 0 8px #27c93f; 
+      animation-duration: 1s; 
+    }
+     
+    .particle:nth-child(1) { animation-delay: 0s; } 
+    .particle:nth-child(2) { animation-delay: 0.8s; } 
+    .particle:nth-child(3) { animation-delay: 1.6s; }
+     
+    .dash-footer { 
+      background: #121215; padding: 15px 20px; 
+      border-top: 1px solid #1f1f23; 
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; 
+    }
+     
+    .metric { display: flex; flex-direction: column; }
+    .metric-label { 
+      font-size: 9px; color: #666; text-transform: uppercase; 
+      margin-bottom: 4px; 
+    }
+    .metric-value { 
+      font-size: 14px; color: #fff; font-weight: 700; 
+      transition: color 0.3s; 
+    }
+     
+    @keyframes flow { 
+      0% { left: 0%; opacity: 0; } 
+      10% { opacity: 1; } 
+      90% { opacity: 1; } 
+      100% { left: 100%; opacity: 0; } 
+    }
+     
+    .shake { animation: shakeAnim 0.5s infinite; }
+    @keyframes shakeAnim { 
+      0% { transform: translate(0,0); } 
+      25% { transform: translate(1px, 1px); } 
+      50% { transform: translate(-1px, -1px); } 
+      75% { transform: translate(1px, -1px); } 
+      100% { transform: translate(0,0); } 
+    }
+
+    /* =========================================
+       SECTION 3: ENHANCED INFRASTRUCTURE (UPDATED)
+       ========================================= 
+    */
+    .infra-scene { 
+      width: 300px; height: 300px; perspective: 1000px; 
+      position: relative; display: flex; 
+      justify-content: center; align-items: center; 
+    }
+     
+    .infra-group { 
+      width: 100%; height: 100%; position: absolute; 
+      transform-style: preserve-3d; 
+      transform: rotateX(60deg) rotateZ(45deg); 
+    }
+     
+    .infra-layer { 
+      position: absolute; width: 180px; height: 180px; 
+      border-radius: 12px; left: 50%; top: 50%; 
+      margin-left: -90px; margin-top: -90px; 
+      display: flex; justify-content: center; align-items: center; 
+      transition: all 0.5s ease; 
+      box-shadow: 5px 5px 20px rgba(0,0,0,0.5); 
+    }
+     
+    .layer-base { 
+      background: rgba(30, 30, 30, 0.95); border: 1px solid #444; 
+      background-image: radial-gradient(#555 1px, transparent 1px); 
+      background-size: 20px 20px; 
+      animation: stackBase 6s infinite ease-in-out; 
+    }
+     
+    .layer-gov { 
+      background: rgba(255, 106, 26, 0.1); 
+      border: 1px solid #ff6a1a; backdrop-filter: blur(2px); 
+      box-shadow: inset 0 0 20px rgba(255, 106, 26, 0.2); 
+      /* FIX 1: Set initial state to match 0% of animation to prevent load snap */
+      transform: translateZ(60px); 
+      animation: stackGov 6s infinite ease-in-out; 
+    }
+     
+    .layer-data { 
+      background: rgba(255, 255, 255, 0.05); 
+      border: 1px solid rgba(255, 255, 255, 0.3); 
+      /* FIX 1: Set initial state to match 0% of animation to prevent load snap */
+      transform: translateZ(120px); 
+      animation: stackData 6s infinite ease-in-out; 
+    }
+     
+    .infra-label { 
+      position: absolute; 
+      right: -120px; 
+      bottom: 50%; 
+      transform: translateY(50%);
+      background: rgba(17, 17, 17, 0.95); 
+      border-left: 3px solid #ff6a1a; 
+      color: #fff; 
+      font-size: 11px; 
+      font-weight: 700;
+      padding: 6px 12px; 
+      font-family: 'JetBrains Mono', monospace; 
+      box-shadow: 0 5px 15px rgba(0,0,0,0.8); 
+      white-space: nowrap;
+      opacity: 0; 
+      animation: fadeInLabels 6s infinite ease-in-out; 
+      letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+     
+    .layer-base .infra-label { 
+      animation-delay: 0.2s; 
+      border-left-color: #888;
+    }
+     
+    .layer-gov .infra-label { 
+      animation-delay: 0.4s; 
+    }
+     
+    .layer-data .infra-label { 
+      animation-delay: 0.6s; 
+      border-left-color: #fff;
+    }
+
+    .infra-shield { 
+      position: absolute; width: 40px; height: 50px; 
+      background: #fff; left: 50%; top: 50%; 
+      transform: translate(-50%, -50%) translateZ(120px) rotateZ(-45deg) rotateX(-60deg); 
+      clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); 
+      display: flex; justify-content: center; align-items: center; 
+      color: #0b0b0e; font-weight: 900; font-size: 20px; 
+      opacity: 0; box-shadow: 0 0 25px rgba(255,255,255,0.9); 
+      animation: shieldLock 6s infinite ease-in-out; z-index: 100; 
+    }
+     
+    .infra-particles { 
+      position: absolute; width: 100%; height: 100%; 
+      transform-style: preserve-3d; pointer-events: none; 
+    }
+     
+    .i-dot { 
+      position: absolute; width: 4px; height: 4px; 
+      background: #777; border-radius: 50%; 
+      left: 50%; top: 50%; opacity: 0; 
+      animation: dataRise 6s infinite linear; 
+    }
+     
+    .id1 { margin-left: -40px; margin-top: -20px; animation-delay: 0s; }
+    .id2 { margin-left: 20px; margin-top: 30px; animation-delay: 0.5s; }
+    .id3 { margin-left: 50px; margin-top: -50px; animation-delay: 1.2s; }
+    .id4 { margin-left: -20px; margin-top: 40px; animation-delay: 2.0s; }
+
+    /* --- ANIMATION KEYFRAMES (Adjusted for Smoothness) --- */
+     
+    @keyframes stackBase { 
+      0%, 40% { transform: translateZ(0px); } 
+      50%, 80% { transform: translateZ(0px); } 
+    }
+     
+    @keyframes stackGov { 
+      0%, 40% { transform: translateZ(60px); opacity: 1; } 
+      50%, 80% { transform: translateZ(5px); opacity: 0.5; } 
+      /* FIX 2: Changed from 90% to 100% for a longer, smoother rise */
+      100% { transform: translateZ(60px); opacity: 1; } 
+    }
+     
+    @keyframes stackData { 
+      0%, 40% { transform: translateZ(120px); } 
+      50%, 80% { transform: translateZ(10px); background: rgba(255,255,255,0.1); border-color: #fff; } 
+      /* FIX 2: Changed from 90% to 100% for a longer, smoother rise */
+      100% { transform: translateZ(120px); background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.3); } 
+    }
+     
+    @keyframes dataRise { 
+      0% { transform: translateZ(0px); opacity: 0; background: #555; } 
+      10% { opacity: 1; } 
+      35% { background: #555; } 
+      40% { transform: translateZ(60px); background: #ff6a1a; box-shadow: 0 0 5px #ff6a1a; } 
+      80% { opacity: 1; } 
+      90% { transform: translateZ(150px); opacity: 0; } 
+    }
+     
+    @keyframes shieldLock { 
+      0%, 45% { opacity: 0; transform: translate(-50%, -50%) translateZ(180px) rotateZ(-45deg) rotateX(-60deg) scale(0.5); } 
+      50% { opacity: 1; transform: translate(-50%, -50%) translateZ(80px) rotateZ(-45deg) rotateX(-60deg) scale(1); } 
+      80% { opacity: 1; transform: translate(-50%, -50%) translateZ(80px) rotateZ(-45deg) rotateX(-60deg) scale(1); } 
+      85% { opacity: 0; } 
+    }
+     
+    @keyframes fadeInLabels { 
+      0%, 10% { opacity: 0; right: -120px; } 
+      20%, 40% { opacity: 1; right: -120px; } 
+      50%, 85% { opacity: 0.3; right: -120px; } 
+      90% { opacity: 1; right: -120px; } 
+    }
+
+    /* =========================================
+       SECTION 4: NEW STRATEGIC HUD ANIMATION
+       ========================================= 
+    */
+    .strategy-scene {
+      width: 100%;
+      height: 320px;
+      perspective: 1000px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: visible;
+    }
+
+    .hud-container {
+      width: 260px;
+      height: 200px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(15deg) rotateY(-15deg) rotateZ(2deg);
+      transition: transform 0.5s ease;
+    }
+
+    .strategy-scene:hover .hud-container {
+      transform: rotateX(5deg) rotateY(-5deg) rotateZ(0deg);
+    }
+
+    /* --- BACKDROP GRID --- */
+    .hud-grid-base {
+      position: absolute;
+      width: 340px;
+      height: 280px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) translateZ(-40px);
+      background: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+      border-radius: 12px;
+      box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* --- MAIN DATA WIDGET (Chart) --- */
+    .widget-main {
+      position: absolute;
+      width: 180px;
+      height: 140px;
+      top: 0;
+      left: 0;
+      background: rgba(15, 15, 18, 0.9);
+      border: 1px solid #333;
+      border-top: 2px solid #ff6a1a;
+      border-radius: 8px;
+      padding: 15px;
+      transform: translateZ(0px);
+      box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .widget-header {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .widget-chart-area {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      margin-top: 10px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 5px;
+      position: relative;
+    }
+
+    /* Chart Bars */
+    .chart-bar {
+      width: 12px;
+      background: #333;
+      border-radius: 2px 2px 0 0;
+      animation: growBar 4s infinite ease-in-out;
+      position: relative;
+    }
+
+    .cb-1 { height: 30%; animation-delay: 0s; }
+    .cb-2 { height: 45%; animation-delay: 0.2s; }
+    .cb-3 { height: 40%; animation-delay: 0.4s; }
+    .cb-4 { height: 60%; animation-delay: 0.6s; }
+    .cb-5 { height: 55%; animation-delay: 0.8s; }
+
+    /* The AI Prediction Bar */
+    .chart-bar.ai-pred {
+      background: linear-gradient(180deg, #ff6a1a 0%, rgba(255, 106, 26, 0.2) 100%);
+      box-shadow: 0 0 15px rgba(255, 106, 26, 0.4);
+      height: 85%;
+      animation: growPred 4s infinite cubic-bezier(0.19, 1, 0.22, 1);
+      border: 1px solid #ff6a1a;
+    }
+
+    /* --- SECONDARY WIDGET (Donut) --- */
+    .widget-side {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      bottom: 0;
+      right: -20px;
+      background: rgba(20, 20, 25, 0.95);
+      border: 1px solid #333;
+      border-radius: 8px;
+      transform: translateZ(30px);
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: -5px 5px 20px rgba(0,0,0,0.6);
+    }
+
+    .donut-ring {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 3px solid #333;
+      border-top-color: #27c93f;
+      border-right-color: #27c93f;
+      transform: rotate(-45deg);
+      animation: spinRing 6s infinite ease-in-out;
+      position: relative;
+    }
+
+    .donut-label {
+      position: absolute;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .side-label {
+      font-size: 7px;
+      color: #888;
+      margin-top: 8px;
+      text-transform: uppercase;
+    }
+
+    /* --- FLOATING INSIGHT CARD (The "Result") --- */
+    .insight-card {
+      position: absolute;
+      width: 160px;
+      top: 40px;
+      right: -70px;
+      background: rgba(255, 106, 26, 0.95);
+      color: #000;
+      border-radius: 6px;
+      padding: 12px;
+      transform: translateZ(80px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+      font-family: 'JetBrains Mono', monospace;
+      opacity: 0;
+      animation: floatInsight 8s infinite;
+      pointer-events: none;
+    }
+
+    .insight-header {
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .insight-dot {
+      width: 6px;
+      height: 6px;
+      background: #000;
+      border-radius: 50%;
+      animation: pulseDot 1s infinite;
+    }
+
+    .insight-body {
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    /* --- CONNECTING LINES --- */
+    .connect-line {
+      position: absolute;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.3);
+      transform-origin: left;
+      z-index: 1;
+    }
+
+    .cl-1 {
+      width: 60px;
+      top: 40%;
+      left: 100px;
+      transform: rotate(-25deg) translateZ(20px);
+    }
+
+    /* --- ANIMATIONS --- */
+    @keyframes growBar {
+      0%, 100% { transform: scaleY(0.5); opacity: 0.7; }
+      50% { transform: scaleY(1); opacity: 1; }
+    }
+
+    @keyframes growPred {
+      0%, 15% { height: 0%; opacity: 0; }
+      25% { height: 85%; opacity: 1; }
+      85% { height: 85%; opacity: 1; }
+      95% { height: 0%; opacity: 0; }
+    }
+
+    @keyframes spinRing {
+      0% { transform: rotate(-45deg); border-top-color: #27c93f; }
+      50% { transform: rotate(135deg); border-top-color: #ff6a1a; border-right-color: #ff6a1a; }
+      100% { transform: rotate(315deg); border-top-color: #27c93f; }
+    }
+
+    @keyframes floatInsight {
+      0%, 25% { opacity: 0; transform: translateZ(60px) translateY(10px) rotateY(-10deg); }
+      30% { opacity: 1; transform: translateZ(100px) translateY(0) rotateY(0deg); }
+      80% { opacity: 1; transform: translateZ(100px) translateY(0) rotateY(0deg); }
+      90% { opacity: 0; transform: translateZ(120px) translateY(-10px) rotateY(10deg); }
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* =======================================================
+      MOBILE / RESPONSIVE QUERY
+      =======================================================
+    */
+    @media (max-width: 900px) {
+      .services-section {
+        padding: 60px 15px;
+      }
+      
+      .section-header h1 {
+        font-size: 32px;
+      }
+
+      .service-card {
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 40px;
+        text-align: left;
+      }
+
+      /* Stack visuals below content */
+      .service-content {
+        order: 1;
+        width: 100%;
+      }
+      
+      .service-visual {
+        order: 2;
+        width: 100%;
+        margin-top: 10px;
+        /* Ensure containers don't overflow horizontally on small screens */
+        overflow: visible;
+      }
+
+      /* --- Visual Scaling for Small Screens --- 
+         The 3D scenes have fixed widths (280px - 300px).
+         On very small screens (e.g. iPhone SE 320px width), 
+         we scale them down slightly to prevent cut-off.
+      */
+      
+      .deck-scene, 
+      .infra-scene,
+      .strategy-scene {
+        /* If screen is smaller than the element, scale it down */
+        transform: scale(0.9); 
+      }
+
+      /* Section 2 Pipeline specific mobile fixes */
+      .pipeline-card {
+        max-width: 100%; /* Allow it to shrink */
+      }
+      
+      .pipeline-viz {
+        padding: 50px 15px; /* Reduce internal padding */
+      }
+      
+      .dash-footer {
+        gap: 5px;
+      }
+      
+      .metric-label { font-size: 8px; }
+      .metric-value { font-size: 12px; }
+    }
+
+    @media (max-width: 400px) {
+      /* Even smaller scaling for 320px-375px screens */
+      .deck-scene, 
+      .infra-scene,
+      .strategy-scene {
+        transform: scale(0.75); 
+      }
+      
+      .pipeline-viz {
+        /* Adjust pipeline track margins so nodes don't overflow */
+        padding: 50px 10px;
+      }
+      
+      .pipeline-track, .particle-container {
+        left: 40px; right: 40px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<section class="services-section">
+  <div class="container">
+
+    <div class="section-header">
+      <span>Services</span>
+      <h1>What We Offer</h1>
+      <p>
+        We design, build, and deploy customized AI systems that solve real business problems —
+        from intelligent automation to predictive decision-making.
+      </p>
+    </div>
+
+    <div class="service-card">
+        <div class="service-content">
+            <div class="service-index">01</div>
+            <h2>AI Agents</h2>
+            <p>
+            AI agents that take ownership of work — end to end.
+            </p>
+            <ul class="features">
+            <li>
+                <strong>Agents for Every Role</strong>: sales follow-ups, customer support,
+                HR onboarding, and operations, executed automatically.
+            </li>
+            <li>
+                <strong>Multi-Modal Content Creation</strong> – generate text, visuals, and videos
+                that are ready to publish.
+            </li>
+            <li>
+                <strong>Knowledge-Aware Agents</strong> – instant, accurate answers powered by
+                your internal documents.
+            </li>
+            <li>
+                <strong>Brand-Native SLMs</strong> – private intelligence designed to speak
+                your language without external APIs.
+            </li>
+            </ul>
+        </div>
+        
+        <div class="service-visual">
+            <div class="deck-scene">
+                <div class="deck-group">
+                    
+                    <div class="id-card card-sales">
+                        <div class="activity-badge">ACTIVE</div>
+                        <div class="card-header">
+                            <span class="role-badge">SALES_AGENT</span>
+                        </div>
+                        <div class="card-body">
+                            <span class="stat-label">OUTREACH PERFORMANCE</span>
+                            <div class="stat-value">
+                                Leads: 1,42<span class="counter-scroll">
+                                    <div class="counter-strip">
+                                        0<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="id-card card-support">
+                        <div class="activity-badge">ACTIVE</div>
+                        <div class="card-header">
+                            <span class="role-badge">SUPPORT_AGENT</span>
+                            </div>
+                        <div class="card-body">
+                            <span class="stat-label">CURRENT STATUS</span>
+                            <div class="stat-value">
+                                <div class="pulse-dot"></div> RESOLVING TICKET
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="id-card card-analyst">
+                        <div class="activity-badge">ACTIVE</div>
+                        <div class="card-header">
+                            <span class="role-badge">ANALYST_AGENT</span>
+                             </div>
+                        <div class="card-body">
+                            <span class="stat-label">RISK ASSESSMENT</span>
+                            <div class="stat-value">
+                                <div class="bar-graph">
+                                    <div class="bar b1"></div>
+                                    <div class="bar b2"></div>
+                                    <div class="bar b3"></div>
+                                </div>
+                                OPTIMIZING
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="service-card">
+      <div class="service-content">
+        <div class="service-index">02</div>
+        <h2>Predictive & Autonomous Systems</h2>
+        <p>
+          Systems that anticipate what's next and act before problems appear.
+        </p>
+        <ul class="features">
+          <li>
+            <strong>AI Quality Inspection</strong> – computer vision models trained for
+            high-precision defect detection in real-world environments.
+          </li>
+          <li>
+            <strong>Demand Forecasting</strong> – statistically validated models for
+            inventory planning, pricing, and market demand.
+          </li>
+          <li>
+            <strong>Recommendation Systems</strong> – personalization engines optimized
+            for relevance, performance, and business constraints.
+          </li>
+          <li>
+            <strong>Operational Optimization</strong> – autonomous systems that improve
+            logistics and resource allocation under defined controls.
+          </li>
+        </ul>
+      </div>
+      
+      <div class="service-visual">
+        <div class="pipeline-card">
+            <div class="dash-header">
+                <div class="header-title">Quality Monitor AI</div>
+                <div class="status-badge scanning" id="status-text">MONITORING</div>
+            </div>
+            <div class="pipeline-viz">
+                <div class="pipeline-track"></div>
+                <div class="particle-container" id="particles">
+                    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+                </div>
+                <div class="node">
+                    <div class="node-label">Monitor</div>
+                </div>
+                <div class="node" id="node-predict">
+                    <div class="node-label">Predict</div>
+                </div>
+                <div class="node" id="node-act">
+                    <div class="node-label">Automate</div>
+                </div>
+            </div>
+            <div class="dash-footer">
+                <div class="metric">
+                    <span class="metric-label">Defect Risk</span>
+                    <span class="metric-value" id="metric-risk">0.2%</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Accuracy</span>
+                    <span class="metric-value" id="metric-accuracy">99.8%</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">System Status</span>
+                    <span class="metric-value" id="metric-health">Optimal</span>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="service-card">
+      <div class="service-content">
+        <div class="service-index">03</div>
+        <h2>Data Foundation & AI Infrastructure</h2>
+        <p>
+          Secure, private data infrastructure built to run AI models within your
+          own environment — with governance by design.
+        </p>
+        <ul class="features">
+          <li>
+            <strong>Unified Data Architecture</strong> – governed data models that
+            establish a controlled, auditable source of truth.
+          </li>
+          <li>
+            <strong>Private Model Infrastructure</strong> – AI models deployed and
+            operated entirely within your own cloud or on-prem environment.
+          </li>
+          <li>
+            <strong>Resilient Data Pipelines</strong> – real-time and batch ingestion
+            designed for reliability, isolation, and fault tolerance.
+          </li>
+          <li>
+            <strong>Security & Governance Controls</strong> – automated enforcement
+            of data quality, access policies, lineage, and regulatory compliance.
+          </li>
+        </ul>
+      </div>
+      
+      <div class="service-visual">
+        <div class="infra-scene">
+            <div class="infra-group">
+                
+                <div class="infra-layer layer-base">
+                    <div class="infra-label">PRIVATE CLOUD</div>
+                </div>
+
+                <div class="infra-layer layer-gov">
+                    <div class="infra-label">GOVERNANCE</div>
+                </div>
+
+                <div class="infra-layer layer-data">
+                    <div class="infra-label">SECURE MODEL</div>
+                </div>
+
+                <div class="infra-shield">✓</div>
+
+                <div class="infra-particles">
+                    <div class="i-dot id1"></div>
+                    <div class="i-dot id2"></div>
+                    <div class="i-dot id3"></div>
+                    <div class="i-dot id4"></div>
+                </div>
+
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="service-card">
+      <div class="service-content">
+        <div class="service-index">04</div>
+        <h2>Strategic Intelligence & Executive Insights</h2>
+        <p>
+          Decision-grade intelligence that gives leaders clear visibility,
+          early signals, and confidence in critical decisions.
+        </p>
+        <ul class="features">
+          <li>
+            <strong>Executive Intelligence Views</strong> – consolidated, real-time
+            visibility into business performance and risk.
+          </li>
+          <li>
+            <strong>Anomaly & Risk Detection</strong> – early identification of KPI
+            deviations and emerging issues.
+          </li>
+          <li>
+            <strong>Decision Support Systems</strong> – AI-informed recommendations
+            grounded in data, constraints, and business context.
+          </li>
+          <li>
+            <strong>Performance & ROI Measurement</strong> – continuous tracking of
+            efficiency, outcomes, and strategic impact.
+          </li>
+        </ul>
+      </div>
+      
+      <div class="service-visual">
+        <div class="strategy-scene">
+            <div class="hud-container">
+                <div class="hud-grid-base"></div>
+
+                <div class="widget-main">
+                    <div class="widget-header">
+                        <span>Revenue Forecast</span>
+                        <span>Q3 PROJECTION</span>
+                    </div>
+                    <div class="widget-chart-area">
+                        <div class="chart-bar cb-1"></div>
+                        <div class="chart-bar cb-2"></div>
+                        <div class="chart-bar cb-3"></div>
+                        <div class="chart-bar cb-4"></div>
+                        <div class="chart-bar cb-5"></div>
+                        <div class="chart-bar ai-pred"></div>
+                    </div>
+                    <div class="widget-header" style="margin-top:5px; color:#ff6a1a;">
+                        <span>AI CONFIDENCE</span>
+                        <span>94.2%</span>
+                    </div>
+                </div>
+
+                <div class="widget-side">
+                    <div class="donut-ring">
+                        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:10px; color:#fff; font-weight:700; transform: rotate(45deg);">
+                            +18%
+                        </div>
+                    </div>
+                    <div class="side-label">Efficiency</div>
+                </div>
+
+                <div class="connect-line cl-1"></div>
+
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <div class="insight-dot"></div>
+                        Opportunity Detected
+                    </div>
+                    <div class="insight-body">
+                        Reallocate ad spend to capture emerging segment.
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<script>
+    // SECTION 2: Predictive Dashboard Animation
+    const statusText = document.getElementById('status-text');
+    const nodePredict = document.getElementById('node-predict');
+    const nodeAct = document.getElementById('node-act');
+    const particles = document.getElementById('particles');
+    const metricRisk = document.getElementById('metric-risk');
+    const metricAccuracy = document.getElementById('metric-accuracy');
+    const metricHealth = document.getElementById('metric-health');
+
+    const runSimulation = async () => {
+        setVisualState('scanning');
+        await wait(2500);
+        setVisualState('predicting');
+        await wait(2000);
+        setVisualState('acting');
+        await wait(1500);
+        setVisualState('stabilized');
+        await wait(3000);
+        runSimulation();
+    };
+
+    function setVisualState(state) {
+        statusText.className = 'status-badge';
+        nodePredict.className = 'node';
+        nodeAct.className = 'node';
+        particles.className = 'particle-container';
+        metricRisk.style.color = '#fff';
+        metricAccuracy.style.color = '#fff';
+        metricHealth.style.color = '#fff';
+
+        if (state === 'scanning') {
+            statusText.innerText = 'MONITORING';
+            statusText.classList.add('scanning');
+            metricRisk.innerText = '0.2%';
+            metricAccuracy.innerText = '99.8%';
+            metricHealth.innerText = 'Optimal';
+        } else if (state === 'predicting') {
+            statusText.innerText = 'DEFECT DETECTED';
+            statusText.classList.add('predicting');
+            nodePredict.classList.add('active-predict', 'shake');
+            particles.classList.add('predicting');
+            metricRisk.innerText = '⚠ 87.2%';
+            metricRisk.style.color = '#ff6a1a';
+            metricAccuracy.innerText = '94.1%';
+            metricHealth.innerText = 'Alert';
+            metricHealth.style.color = '#ff6a1a';
+        } else if (state === 'acting') {
+            statusText.innerText = 'AUTO-CORRECTING';
+            statusText.classList.add('acting');
+            nodeAct.classList.add('active-act');
+            particles.classList.add('acting');
+            metricRisk.innerText = 'Mitigating';
+            metricAccuracy.innerText = 'Adjusting';
+            metricHealth.innerText = 'Processing';
+        } else if (state === 'stabilized') {
+            statusText.innerText = 'ISSUE RESOLVED';
+            statusText.classList.add('stabilized');
+            nodeAct.classList.add('active-act');
+            particles.classList.add('acting');
+            metricRisk.innerText = '0.0%';
+            metricRisk.style.color = '#27c93f';
+            metricAccuracy.innerText = '99.9%';
+            metricAccuracy.style.color = '#27c93f';
+            metricHealth.innerText = 'Optimal';
+            metricHealth.style.color = '#27c93f';
+        }
+    }
+
+    function wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    runSimulation();
+</script>
+
+</body>
+</html>

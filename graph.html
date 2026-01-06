@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Evolution Dashboard</title>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --bg-card: #121212;
+            --text-main: #e0e0e0;
+            --text-muted: #888888;
+            --accent-green: #00dc82; 
+            --accent-red: #ef4444;
+            --border: #2a2a2a;
+        }
+
+        body {
+            background-color: black;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            max-width: 1000px;
+            width: 100%;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+
+        /* Header */
+        .header {
+            text-align: left;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+        }
+        .header h1 {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 5px 0;
+            font-size: 28px;
+            background: linear-gradient(to right, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin: 0;
+        }
+        .status-badge {
+            background: rgba(0, 220, 130, 0.1);
+            color: var(--accent-green);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid rgba(0, 220, 130, 0.2);
+        }
+
+        /* Narrative Section (Replaces the Grid) */
+        .narrative-card {
+            background: linear-gradient(180deg, rgba(20,20,20,0.8) 0%, rgba(10,10,10,1) 100%);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent-green);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            min-height: 60px;
+            transition: all 0.3s ease;
+        }
+
+        .narrative-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #d1d5db;
+            font-weight: 400;
+        }
+        
+        .narrative-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-green);
+            margin-bottom: 8px;
+            font-weight: 700;
+            display: block;
+        }
+
+        /* Graph Section */
+        .chart-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            position: relative;
+            height: 380px;
+            margin-bottom: 30px;
+        }
+
+        /* Controls */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            background: #0a0a0a;
+            padding: 6px;
+            border-radius: 12px;
+            width: fit-content;
+            margin: 0 auto;
+            border: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: #666;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: white;
+            background: #1a1a1a;
+        }
+
+        .tab-btn.active {
+            background-color: var(--accent-green);
+            color: black;
+            box-shadow: 0 0 15px rgba(0, 220, 130, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const evolutionData = [
+            { month: 'Jan', value: 45, feature: 'Base AI Agents', type: 'base' },
+            { month: 'Feb', value: 58, feature: 'API & Connectors', type: 'growth' },
+            { month: 'Mar', value: 65, feature: 'Slack/Gmail Integration', type: 'growth' }, 
+            
+            { month: 'Apr', value: 60, feature: 'PDF Parsing Agents', type: 'dip' },
+            { month: 'May', value: 78, feature: 'Context Window Expansion', type: 'spike' },
+            { month: 'Jun', value: 72, feature: 'Reasoning Engine v2', type: 'dip' },
+            
+            { month: 'Jul', value: 88, feature: 'Vision Model', type: 'spike' },
+            { month: 'Aug', value: 85, feature: 'Voice Models', type: 'dip' },
+            { month: 'Sep', value: 96, feature: 'Added Emotions', type: 'growth' },
+            
+            { month: 'Oct', value: 110, feature: 'Self Aware Agents', type: 'spike' },
+            { month: 'Nov', value: 118, feature: 'Self Healing Modules', type: 'growth' },
+            { month: 'Dec', value: 135, feature: 'Plug and Play', type: 'peak' }
+        ];
+
+        // --- SINGLE SENTENCE NARRATIVES ---
+        const quarterNarratives = {
+            Q1: {
+                title: "The Integration Layer",
+                text: "We established the digital foundation by physically interconnecting core Agents with Slack, WhatsApp, and Gmail APIs, resulting in immediate linear efficiency gains."
+            },
+            Q2: {
+                title: "The Cognitive Layer",
+                text: "The system's 'brain' was deepened via PDF Parsing and Reasoning V2. Note the temporary efficiency dips in April and June—a necessary trade-off for handling complex unstructured data."
+            },
+            Q3: {
+                title: "The Sensory Layer",
+                text: "Evolution into multimodal capabilities. The addition of Vision and Voice models allowed agents to understand images and tone, adding critical emotional context to interactions."
+            },
+            Q4: {
+                title: "The Autonomy Layer",
+                text: "Peak efficiency achieved. With Self-Healing Modules and Plug & Play architecture, the system now detects and fixes its own errors, requiring zero human maintenance."
+            }
+        };
+
+        const Dashboard = () => {
+            const [activeQuarter, setActiveQuarter] = useState('Q4');
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            const getVisibleData = () => {
+                const endIndices = { 'Q1': 3, 'Q2': 6, 'Q3': 9, 'Q4': 12 };
+                return evolutionData.slice(0, endIndices[activeQuarter]);
+            };
+
+            useEffect(() => {
+                const ctx = chartRef.current.getContext('2d');
+                const dataPoints = getVisibleData();
+                
+                // Color logic: Red for Dips, Green for Growth
+                const pointColors = dataPoints.map(d => d.type === 'dip' ? '#ef4444' : '#00dc82');
+
+                const gradient = ctx.createLinearGradient(0, 0, 0, 350);
+                gradient.addColorStop(0, 'rgba(0, 220, 130, 0.15)');
+                gradient.addColorStop(1, 'rgba(0, 220, 130, 0)');
+
+                if (chartInstance.current) {
+                    chartInstance.current.destroy();
+                }
+
+                chartInstance.current = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: dataPoints.map(d => d.month),
+                        datasets: [{
+                            label: 'System Efficiency',
+                            data: dataPoints.map(d => d.value),
+                            borderColor: '#00dc82',
+                            backgroundColor: gradient,
+                            borderWidth: 2,
+                            
+                            // --- VISIBLE DOTS CONFIGURATION ---
+                            pointRadius: 6,           // Visible dots
+                            pointHoverRadius: 9,      // Larger on hover
+                            pointHitRadius: 50,       // Large hit area for easy hovering
+                            pointBackgroundColor: '#050505',
+                            pointBorderColor: pointColors, 
+                            pointBorderWidth: 2,
+                            
+                            fill: true,
+                            tension: 0.35
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',    // Tooltip appears if you hover anywhere on the vertical slice
+                            intersect: false, // Don't need to touch the specific dot
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(20, 20, 20, 0.95)',
+                                titleColor: '#888',
+                                bodyColor: '#fff',
+                                borderColor: '#333',
+                                borderWidth: 1,
+                                padding: 14,
+                                displayColors: false,
+                                titleFont: { size: 11, weight: 'normal' },
+                                bodyFont: { size: 14, weight: 'bold' },
+                                callbacks: {
+                                    title: (ctx) => `${ctx[0].label} • ${evolutionData[ctx[0].dataIndex].type.toUpperCase()}`,
+                                    label: (ctx) => {
+                                        const feature = evolutionData[ctx.dataIndex].feature;
+                                        const value = ctx.parsed.y;
+                                        return [`Feature: ${feature}`, `Efficiency: ${value} pts`];
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                grid: { color: '#222', drawBorder: false },
+                                ticks: { color: '#555', padding: 10 },
+                                beginAtZero: true,
+                            },
+                            x: {
+                                grid: { color: '#1a1a1a', drawBorder: false },
+                                ticks: { color: '#666' }
+                            }
+                        }
+                    }
+                });
+
+                return () => {
+                    if (chartInstance.current) chartInstance.current.destroy();
+                };
+            }, [activeQuarter]);
+
+            const narrative = quarterNarratives[activeQuarter];
+
+            return (
+                <div className="dashboard-container">
+                    
+                    <div className="header">
+                        <div>
+                            <h1>Intelligent Agent Evolution</h1>
+                            <p>Feature Integration vs. System Efficiency Analysis</p>
+                        </div>
+                        <div className="status-badge">LIVE MONITORING</div>
+                    </div>
+
+                    {/* Single Sentence Narrative Box */}
+                    <div className="narrative-card">
+                        <div>
+                            <span className="narrative-label">{narrative.title}</span>
+                            <div className="narrative-text">
+                                {narrative.text}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="chart-wrapper">
+                        <canvas ref={chartRef}></canvas>
+                    </div>
+
+                    <div className="tabs">
+                        {['Q1', 'Q2', 'Q3', 'Q4'].map(q => (
+                            <button 
+                                key={q} 
+                                onClick={() => setActiveQuarter(q)}
+                                className={`tab-btn ${activeQuarter === q ? 'active' : ''}`}
+                            >
+                                {q}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<Dashboard />);
+    </script>
+</body>
+</html>
