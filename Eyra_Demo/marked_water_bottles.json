@@ -1,0 +1,41 @@
+{
+  "inference": "3 bottles inspected: 2 with different labels (1 good, 1 broken seal), 1 without a label.",
+  "annotations": [
+    {
+      "id": 1,
+      "img_w": 3034,
+      "img_h": 1586,
+      "x1": 1610,
+      "y1": 335,
+      "x2": 1681,
+      "y2": 398,
+      "label": "Status: Damaged",
+      "border": "#FF3232",
+      "fill": "#FF3232"
+    },
+    {
+      "id": 2,
+      "img_w": 3034,
+      "img_h": 1586,
+      "x1": 2454,
+      "y1": 1276,
+      "x2": 2531,
+      "y2": 1330,
+      "label": "Status: Damaged",
+      "border": "#FF3232",
+      "fill": "#FF3232"
+    },
+    {
+      "id": 3,
+      "img_w": 3034,
+      "img_h": 1586,
+      "x1": 1718,
+      "y1": 803,
+      "x2": 1798,
+      "y2": 852,
+      "label": "Status: Damaged",
+      "border": "#FF3232",
+      "fill": "#FF3232"
+    }
+  ]
+}
